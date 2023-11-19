@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./Styles/styles.css" />
+  </head>
+  <body>
+    <header
+      class="container-fluid text-center text-white bg-dark p-2 weather-header"
+    >
+      <h1>Weather Dashboard</h1>
+    </header>
+
+    <div class="container">
+      <!-- Search Section -->
+      <div class="search-section">
+        <form id="search-form" class="form">
+          <div class="form-inline form-group">
+            <div class="input-group">
+              <input
+                class="form-input weather-search"
+                type="text"
+                id="search-input"
+                placeholder="Enter City"
+                aria-labelledby="form-heading"
+                aria-controls="today forecast"
+              />
+              <div class="input-group-append">
+                <button
+                  type="submit"
+                  class="btn search-button"
+                  id="search-button"
+                  aria-label="submit search"
+                >
+                  Search
+                </button>
+                <hr class="hr weather-hr" />
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="history">
+          <h2>Search History</h2>
+          <div class="list-group" id="history"></div>
+        </div>
+      </div>
+
+      <!-- Forecast Section -->
+      <div class="forecast-section">
+        <!-- Current Conditions Section -->
+        <div class="current-conditions">
+          <h2 id="city-name" class="mt-1 h3 form-label">City Name</h2>
+          <p id="date">Date</p>
+          <img id="weather-icon" src="" alt="Weather Icon" />
+          <p id="temperature">Temperature</p>
+          <p id="humidity">Humidity</p>
+          <p id="wind-speed">Wind Speed</p>
+        </div>
+
+        <!-- 5-day Forecast -->
+        <div class="forecast">
+          <section id="forecast" role="region" aria-live="polite"></section>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./Scripts/scripts.js"></script>
+  </body>
+</html>
