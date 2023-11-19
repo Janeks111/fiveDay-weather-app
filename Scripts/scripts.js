@@ -102,4 +102,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     searchInput.value = "";
   }
+  async function searchHistoryClick(city) {
+    const searchInput = document.getElementById("search-input");
+    searchInput.value = city;
+
+    await handleFormSubmit(new Event("submit"));
+
+    const historyList = document.getElementById("history");
+    const historyItems = historyList.getElementsByClassName("history-item");
+
+    for (const item of historyItems) {
+      if (item.textContent === city) {
+        historyList.removeChild(item);
+        break;
+      }
+    }
+
+    const updatedHistory = Array.from(historyItems).map(
+      (item) => item.textContent
+    );
+    localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+  }
+  const searchForm = document.getElementById("search-form");
+  searchForm.addEventListener("submit", handleFormSubmit);
+
+  const historyList = document.getElementById("history");
+  historyList.addEventListener("click", function (event) {
+    if (event.target.classList.contains("history-item")) {
+      const city = event.target.textContent;
+      searchHistoryClick(city);
+    }
+  });
 });
