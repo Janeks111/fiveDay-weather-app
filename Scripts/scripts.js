@@ -26,4 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching forecast data:", error);
     }
   }
+  function updateCurrentWeather(data) {
+    const cityName = document.getElementById("city-name");
+    const date = document.getElementById("date");
+    const icon = document.getElementById("weather-icon");
+    const temperature = document.getElementById("temperature");
+    const humidity = document.getElementById("humidity");
+    const windSpeed = document.getElementById("wind-speed");
+
+    cityName.innerText = data.name;
+    date.innerText = new Date().toLocaleDateString();
+    icon.src = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
+    temperature.innerText = `Temperature: ${Math.round(data.main.temp)}°C`;
+    humidity.innerText = `Humidity: ${data.main.humidity}%`;
+    windSpeed.innerText = `Wind Speed: ${data.wind.speed} m/s`;
+  }
 });
