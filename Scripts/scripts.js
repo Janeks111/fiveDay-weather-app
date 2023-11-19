@@ -77,4 +77,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     forecastContainer.appendChild(forecastDaysContainer);
   }
+
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const searchInput = document.getElementById("search-input");
+    const city = searchInput.value;
+
+    const currentWeatherData = await getWeatherData(city);
+
+    if (currentWeatherData.cod === "404") {
+      console.error("City not found");
+      return;
+    }
+
+    const forecastData = await getForecastData(city);
+
+    updateCurrentWeather(currentWeatherData);
+    updateFutureWeather(forecastData);
+
+    const historyList = document.getElementById("history");
+    historyList.innerHTML += `<div class="history-item" onclick="searchHistoryClick('${city}')">${city}</div>`;
+    saveSearchHistory(city);
+
+    searchInput.value = "";
+  }
 });
