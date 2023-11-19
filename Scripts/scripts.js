@@ -133,4 +133,29 @@ document.addEventListener("DOMContentLoaded", function () {
       searchHistoryClick(city);
     }
   });
+  function saveSearchHistory(city) {
+    const existingHistory =
+      JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+    if (!existingHistory.includes(city)) {
+      existingHistory.push(city);
+
+      localStorage.setItem("searchHistory", JSON.stringify(existingHistory));
+    }
+  }
+
+  function loadSearchHistory() {
+    const historyList = document.getElementById("history");
+    const searchHistory =
+      JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+    historyList.innerHTML = searchHistory
+      .map(
+        (city) =>
+          `<div class="history-item" onclick="searchHistoryClick('${city}')">${city}</div>`
+      )
+      .join("");
+  }
+
+  loadSearchHistory();
 });
