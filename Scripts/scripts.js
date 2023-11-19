@@ -41,4 +41,40 @@ document.addEventListener("DOMContentLoaded", function () {
     humidity.innerText = `Humidity: ${data.main.humidity}%`;
     windSpeed.innerText = `Wind Speed: ${data.wind.speed} m/s`;
   }
+  function updateFutureWeather(data) {
+    const forecastContainer = document.getElementById("forecast");
+    forecastContainer.innerHTML = "";
+
+    const groupedForecast = data.list.reduce((acc, forecast) => {
+      const date = forecast.dt_txt.split(" ")[0];
+      if (!acc[date] || forecast.main.temp_max > acc[date].main.temp_max) {
+        acc[date] = forecast;
+      }
+      return acc;
+    }, {});
+
+    const forecastDaysContainer = document.createElement("div");
+    forecastDaysContainer.classList.add("forecast-days-container");
+
+    Object.values(groupedForecast).forEach((forecast) => {
+      const date = new Date(forecast.dt_txt);
+      const icon = forecast.weather[0].icon;
+      const maxTemperature = Math.round(forecast.main.temp_max);
+      const humidity = forecast.main.humidity;
+      const windSpeed = forecast.wind.speed;
+
+      const forecastDay = document.createElement("div");
+      forecastDay.classList.add("forecast-day");
+      forecastDay.innerHTML = `
+              <p class="date">${date.toLocaleDateString()}</p>
+              <img class="weather-icon" src="http://openweathermap.org/img/w/${icon}.png" alt="Weather Icon" />
+              <p class="temperature">Max Temp: ${maxTemperature}°C</p>
+              <p class="humidity">Humidity: ${humidity}%</p>
+              <p class="wind-speed">Wind: ${windSpeed} m/s</p>
+            `;
+
+      forecastDaysContainer.appendChild(forecastDay);
+    });
+    forecastContainer.appendChild(forecastDaysContainer);
+  }
 });
