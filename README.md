@@ -19,6 +19,9 @@ The date/An icon representation of weather conditions/The temperature/The humidi
 
 When a user clicks on a city in the search history they are again presented with current and future conditions for that city.
 
+I published the project with an API key that will be active until 24/11/23.
+After this date I will revoke the API key.
+
 Bellow you can see the images of deployed application together with links where you can access it.
 
 Here is the screenshot of deployed application:
